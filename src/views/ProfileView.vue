@@ -16,7 +16,6 @@ const { userData } = useApplicationStore();
                         <p>Username: {{ userData.username }}</p>
                         <p>Email: {{ userData.email }}</p>
                         <p>Roles: {{ userData.roles.join(",") }}</p>
-                        <p>Access token: {{ userData.accessToken }}</p>
                     </div>
                 </div>
             </div>

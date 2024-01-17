@@ -143,6 +143,12 @@ const router = createRouter({
                     name: 'update-business-request',
                     component: () => import("../views/UpdateBusinessRequestView.vue"),
                     meta: {requiresAuth: true}
+                },
+                {
+                    path: 'handleBusinessRequest',
+                    name: 'handle-business-request',
+                    component: () => import("../views/HandleBusinessRequestView.vue"),
+                    meta: {requiresAuth: true}
                 }
             ]
         },
