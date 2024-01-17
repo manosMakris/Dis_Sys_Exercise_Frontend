@@ -1,0 +1,25 @@
+<script setup>
+import { useApplicationStore } from '@/stores/application.js';
+const { userData } = useApplicationStore();
+</script>
+
+<template>
+    <div class="bg-body-tertiary">
+        <div class="container">
+            <div class="row py-4 px-3">
+                <div class="col-12">
+                    <div class="mb-4">
+                        <h1 class="fs-3">Profile</h1>
+                    </div>
+                    <div>
+                        <!-- @EXERCISE: Create a nice component to present user data -->
+                        <p>Username: {{ userData.username }}</p>
+                        <p>Email: {{ userData.email }}</p>
+                        <p>Roles: {{ userData.roles.join(",") }}</p>
+                        <p>Access token: {{ userData.accessToken }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
