@@ -28,17 +28,22 @@ const onSubmit = () => {
     const methodRef3 = ref("POST");
     const authRef3 = ref(true);
     const methodBodyRef3 = ref({});
-    const addRoleRemoteData = useRemoteData(urlRef3, authRef3, methodRef3, methodBodyRef3);
-    const rolesToAdd = Object.keys(selectedRoles.value).filter(role => selectedRoles.value[role]);
-    rolesToAdd.forEach((role) => {
+    const roleRemoteData = useRemoteData(urlRef3, authRef3, methodRef3, methodBodyRef3);
+    const selectedRolesArray = Object.entries(selectedRoles.value);
+    const rolesToUpdate = selectedRolesArray.filter(role => role[1] !== '');
+    rolesToUpdate.forEach((role) => {
+      if (role[1] === 'add') {
         urlRef3.value = `http://localhost:9090/api/auth/addRole/${userIdRef.value}`;
-        methodBodyRef3.value.name = role;
-        addRoleRemoteData.performRequest();
-        while (!addRoleRemoteData.data) {
-            //
-        }
+      }
+      if (role[1] === 'remove') {
+        urlRef3.value = `http://localhost:9090/api/auth/deleteRole/${userIdRef.value}`;
+      } 
+      methodBodyRef3.value.name = role[0];
+      roleRemoteData.performRequest();
+      while (!roleRemoteData.data) {
+          //
+      }
     })
-    
 
     router.push({ name: 'home' });
 };
@@ -73,10 +78,26 @@ onMounted(() => {
       <label for="password">Password</label>
       <input class="form-control" id="password" v-model="formDataRef.password" type="password" />
     </div>
-    <p>Roles of that user: </p>
+    <p>Roles: </p>
     <div class="mb-2" v-for="role in rolesRemoteData.data.value" :key="role.id">
-        <label :for="role.name">{{ role.name }}</label>
-        <input style="margin-left: 1%;" :id="role.name" type="checkbox" v-model="selectedRoles[role.name]">
+      <label :for="role.name+'Add'">Add {{ role.name }}: </label>
+      <input
+        :id="role.name+'Add'"
+        type="radio"
+        :value="'add'"
+        v-model="selectedRoles[role.name]"
+      />
+      <br>
+      <label :for="role.name+'Remove'">Remove {{ role.name }}: </label>
+      <input
+        style="margin-left: 1%;"
+        :id="role.name+'Remove'"
+        type="radio"
+        :value="'remove'"
+        v-model="selectedRoles[role.name]"
+      />
+      <br>
+      <br>
     </div>
     <div class="">
       <button class="btn btn-primary" @click="onSubmit" type="button">Update user</button>

@@ -77,6 +77,12 @@ const router = createRouter({
             meta: { requiresAuth: true }
         },
         {
+            path: '/roles/new',
+            name: 'role-new',
+            component: () => import('../views/CreateRoleView.vue'),
+            meta: { requiresAuth: true }
+        },
+        {
             path: '/users',
             name: 'users',
             component: () => import('../views/UsersView.vue'),
@@ -98,6 +104,26 @@ const router = createRouter({
                     path: 'update',
                     name: 'update-user',
                     component: () => import("../views/UpdateUserView.vue"),
+                    meta: {requiresAuth: true}
+                }
+            ]
+        },
+        {
+            path: '/roles/:id',
+            name: 'role',
+            component: () => import('../views/RoleView.vue'),
+            meta: { requiresAuth: true },
+            children: [
+                {
+                    path: '',
+                    name: 'role-details',
+                    component: () => import("../views/RoleDetailsView.vue"),
+                    meta: { requiresAuth: true },
+                },
+                {
+                    path: 'update',
+                    name: 'update-role',
+                    component: () => import("../views/UpdateRoleView.vue"),
                     meta: {requiresAuth: true}
                 }
             ]
@@ -148,6 +174,12 @@ const router = createRouter({
                     path: 'handleBusinessRequest',
                     name: 'handle-business-request',
                     component: () => import("../views/HandleBusinessRequestView.vue"),
+                    meta: {requiresAuth: true}
+                },
+                {
+                    path: 'getUser',
+                    name: 'get-user-business-request',
+                    component: () => import("../views/GetUserBusinessRequestView.vue"),
                     meta: {requiresAuth: true}
                 }
             ]

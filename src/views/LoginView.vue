@@ -29,7 +29,6 @@ const onFormSubmit = () => {
         .then((response) => {
             if (response.ok) {
                 response.json().then((data) => {
-                    console.log(data)
                     setUserData(data);
                     persistUserData();
                     router.push({ name: 'home' });

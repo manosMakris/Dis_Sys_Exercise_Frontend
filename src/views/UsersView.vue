@@ -9,13 +9,12 @@ const authRef = ref(true);
 const { data, loading, performRequest } = useRemoteData(urlRef, authRef);
 
 function removeUser(userId) {
-    console.log("About to remove user with id="+userId);
     const urlRef3 = ref(`http://localhost:9090/api/auth/deleteUser/${userId}`);
     const authRef3 = ref(true)
     const removeRemoteData = useRemoteData(urlRef3, authRef3);
     removeRemoteData.performRequest();
     while (!data) {
-        console.log("Waiting for removal of user");
+        //
     }
     router.push({name: "home"});
 }

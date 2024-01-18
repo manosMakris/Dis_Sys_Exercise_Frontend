@@ -73,7 +73,7 @@ onMounted(() => {
                                         >
                                         <RouterLink style="margin-left: 5%;" class="btn btn-primary update-button" v-if="businessRequest.stateOfRequest === 'temporarily saved'"
                                             :to="{
-                                                name: 'user-details',
+                                                name: 'update-business-request',
                                                 params: { id: businessRequest.id }
                                             }"
                                             >

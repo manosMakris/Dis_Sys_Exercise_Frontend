@@ -29,7 +29,6 @@ export function useRemoteData(urlRef, authRef, methodRef = ref("GET"), bodyRef =
             .then((response) => {
                 if (response.ok) {
                     response.json().then((responseData) => {
-                        console.log(responseData);
                         data.value = responseData;
                     });
                 }

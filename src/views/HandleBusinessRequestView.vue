@@ -36,7 +36,7 @@ function onReject() {
     while (!rejectBusinessRequestRemoteData.data) {
         //
     }
-    route.push( {name: "home"} );
+    router.push( {name: "home"} );
 }
 
 </script>

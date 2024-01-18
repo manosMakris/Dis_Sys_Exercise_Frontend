@@ -25,8 +25,6 @@ onMounted(() => {
 
 const onSubmit = () => {
     formDataRef.value.roles = Object.keys(selectedRoles.value).filter(role => selectedRoles.value[role]);
-    console.log(formDataRef.value)
-    console.log(JSON.parse(localStorage.userData).accessToken);
     performRequest();
     router.push({ name: 'home' });
 };
