@@ -15,6 +15,11 @@ function checkJWT(token) {
 
 export const useApplicationStore = defineStore('application', () => {
     const userData = ref(null);
+    const employeeTaxOfficeBoolRef = ref(null);
+
+    const setEmployeeTaxOfficeBool = (tempData) => {
+        employeeTaxOfficeBoolRef.value = tempData
+    }
     
     const setUserData = (tempUserData) => {
         userData.value = tempUserData;
@@ -39,5 +44,5 @@ export const useApplicationStore = defineStore('application', () => {
         return checkJWT(userData.value?.accessToken);
     });
 
-    return { userData, setUserData, persistUserData, loadUserData, clearUserData, isAuthenticated };
+    return { employeeTaxOfficeBoolRef, setEmployeeTaxOfficeBool, userData, setUserData, persistUserData, loadUserData, clearUserData, isAuthenticated };
 });

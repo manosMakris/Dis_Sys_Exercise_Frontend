@@ -89,6 +89,12 @@ const router = createRouter({
             meta: { requiresAuth: true }
         },
         {
+            path: '/seeAllBusinessRequests',
+            name: 'seeAllBusinessRequests',
+            component: () => import('../views/SeeAllBusinessRequests.vue'),
+            meta: { requiresAuth: true }
+        },
+        {
             path: '/businessRequest/new',
             name: 'businessRequest-new',
             component: () => import('../views/CreateBusinessRequestView.vue'),

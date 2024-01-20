@@ -4,12 +4,17 @@ import { useRoute } from 'vue-router';
 import { useApplicationStore } from '@/stores/application.js';
 
 const route = useRoute();
-const { userData, loadUserData } = useApplicationStore();
+const { userData, loadUserData, employeeTaxOfficeBoolRef } = useApplicationStore();
 const businessRequestIdRef = ref(null);
 loadUserData();
 const selectedViewName = computed(() => {
     if (userData.roles.includes('ROLE_EMPLOYEE_TAX_OFFICE')) {
-        return 'handleBusinessRequests';
+        if (employeeTaxOfficeBoolRef === true) {
+            return 'seeAllBusinessRequests';
+        } else if (employeeTaxOfficeBoolRef === false) {
+            return 'handleBusinessRequests';
+        }
+        return '';
     } else if (userData.roles.includes('ROLE_BUSINESS_REPRESENTATIVE')) {
         return 'getBusinessRequests';
     } else {
@@ -18,7 +23,12 @@ const selectedViewName = computed(() => {
 });
 const selectedText = computed(() => {
     if (userData.roles.includes('ROLE_EMPLOYEE_TAX_OFFICE')) {
-        return 'Back to Submitted Business Requests';
+        if (employeeTaxOfficeBoolRef === true) {
+            return 'Back to Accepted/Rejected Requests';
+        } else if (employeeTaxOfficeBoolRef === false) {
+            return 'Back to Submitted Business Requests';
+        }
+        return '';
     } else if (userData.roles.includes('ROLE_BUSINESS_REPRESENTATIVE')) {
         return 'Back to My Business Requests';
     } else {

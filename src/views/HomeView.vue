@@ -19,6 +19,9 @@ const { userData } = useApplicationStore();
                             <li v-if="userData.roles.includes('ROLE_EMPLOYEE_TAX_OFFICE')">
                                 <RouterLink :to="{ name: 'handleBusinessRequests' }">Handle Business Request</RouterLink>
                             </li>
+                            <li v-if="userData.roles.includes('ROLE_EMPLOYEE_TAX_OFFICE')">
+                                <RouterLink :to="{ name: 'seeAllBusinessRequests' }">See All Business Request</RouterLink>
+                            </li>
                             <li v-if="userData.roles.includes('ROLE_ADMIN')">
                                 <RouterLink :to="{ name: 'users' }">Manage Users</RouterLink>
                             </li>

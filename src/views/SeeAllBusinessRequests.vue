@@ -4,12 +4,12 @@ import { useRemoteData } from '@/composables/useRemoteData.js';
 import { useApplicationStore } from '@/stores/application.js';
 
 const { setEmployeeTaxOfficeBool } = useApplicationStore();
-const urlRef = ref(`http://localhost:9090/api/businessRequests/getByState/submitted`);
+const urlRef = ref(`http://localhost:9090/api/businessRequests/`);
 const authRef = ref(true);
 const { data, loading, performRequest } = useRemoteData(urlRef, authRef);
 
 onMounted(() => {
-    setEmployeeTaxOfficeBool(false);
+    setEmployeeTaxOfficeBool(true)
     performRequest();
 });
 </script>
@@ -20,7 +20,7 @@ onMounted(() => {
             <div class="row py-4 px-3">
                 <div class="col-12">
                     <div class="mb-4">
-                        <h1 class="fs-3">Submitted Business Requests</h1>
+                        <h1 class="fs-3">Accepted/Rejected Business Requests</h1>
                     </div>
                     <div>
                         <table class="table">
@@ -44,14 +44,14 @@ onMounted(() => {
                             </tbody>
                             <tbody v-if="data">
                                 <tr v-for="businessRequest in data" :key="businessRequest.id">
-                                    <td>{{ businessRequest.id }}</td>
-                                    <td>{{ businessRequest.members }}</td>
-                                    <td>{{ businessRequest.purpose }}</td>
-                                    <td>{{ businessRequest.missionStatement }}</td>
-                                    <td>{{ businessRequest.location }}</td>
-                                    <td>{{ businessRequest.afm }}</td>
-                                    <td>{{ businessRequest.stateOfRequest }}</td>
-                                    <td>
+                                    <td :class="{'accepted': businessRequest.stateOfRequest === 'accepted', 'rejected': businessRequest.stateOfRequest === 'rejected'}" v-if="businessRequest.stateOfRequest === 'accepted' || businessRequest.stateOfRequest === 'rejected'">{{ businessRequest.id }}</td>
+                                    <td :class="{'accepted': businessRequest.stateOfRequest === 'accepted', 'rejected': businessRequest.stateOfRequest === 'rejected'}" v-if="businessRequest.stateOfRequest === 'accepted' || businessRequest.stateOfRequest === 'rejected'">{{ businessRequest.members }}</td>
+                                    <td :class="{'accepted': businessRequest.stateOfRequest === 'accepted', 'rejected': businessRequest.stateOfRequest === 'rejected'}" v-if="businessRequest.stateOfRequest === 'accepted' || businessRequest.stateOfRequest === 'rejected'">{{ businessRequest.purpose }}</td>
+                                    <td :class="{'accepted': businessRequest.stateOfRequest === 'accepted', 'rejected': businessRequest.stateOfRequest === 'rejected'}" v-if="businessRequest.stateOfRequest === 'accepted' || businessRequest.stateOfRequest === 'rejected'">{{ businessRequest.missionStatement }}</td>
+                                    <td :class="{'accepted': businessRequest.stateOfRequest === 'accepted', 'rejected': businessRequest.stateOfRequest === 'rejected'}" v-if="businessRequest.stateOfRequest === 'accepted' || businessRequest.stateOfRequest === 'rejected'">{{ businessRequest.location }}</td>
+                                    <td :class="{'accepted': businessRequest.stateOfRequest === 'accepted', 'rejected': businessRequest.stateOfRequest === 'rejected'}" v-if="businessRequest.stateOfRequest === 'accepted' || businessRequest.stateOfRequest === 'rejected'">{{ businessRequest.afm }}</td>
+                                    <td :class="{'accepted': businessRequest.stateOfRequest === 'accepted', 'rejected': businessRequest.stateOfRequest === 'rejected'}" v-if="businessRequest.stateOfRequest === 'accepted' || businessRequest.stateOfRequest === 'rejected'">{{ businessRequest.stateOfRequest }}</td>
+                                    <td :class="{'accepted': businessRequest.stateOfRequest === 'accepted', 'rejected': businessRequest.stateOfRequest === 'rejected'}" v-if="businessRequest.stateOfRequest === 'accepted' || businessRequest.stateOfRequest === 'rejected'">
                                         <RouterLink class="btn btn-primary"
                                             :to="{
                                                 name: 'get-user-business-request',
@@ -65,7 +65,7 @@ onMounted(() => {
                                             Display</RouterLink
                                         >
                                     </td>
-                                    <td>
+                                    <td :class="{'accepted': businessRequest.stateOfRequest === 'accepted', 'rejected': businessRequest.stateOfRequest === 'rejected'}" v-if="businessRequest.stateOfRequest === 'accepted' || businessRequest.stateOfRequest === 'rejected'">
                                         <RouterLink class="btn btn-primary"
                                             :to="{
                                                 name: 'business-request-details',
@@ -78,17 +78,6 @@ onMounted(() => {
                                             </svg>
                                             Display</RouterLink
                                         >
-                                        <RouterLink style="margin-top: 5%;" class="btn btn-primary"
-                                            :to="{
-                                                name: 'handle-business-request',
-                                                params: { id: businessRequest.id }
-                                            }"
-                                            >
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-hammer" viewBox="0 0 16 16">
-                                            <path d="M9.972 2.508a.5.5 0 0 0-.16-.556l-.178-.129a5 5 0 0 0-2.076-.783C6.215.862 4.504 1.229 2.84 3.133H1.786a.5.5 0 0 0-.354.147L.146 4.567a.5.5 0 0 0 0 .706l2.571 2.579a.5.5 0 0 0 .708 0l1.286-1.29a.5.5 0 0 0 .146-.353V5.57l8.387 8.873A.5.5 0 0 0 14 14.5l1.5-1.5a.5.5 0 0 0 .017-.689l-9.129-8.63c.747-.456 1.772-.839 3.112-.839a.5.5 0 0 0 .472-.334"/>
-                                            </svg>
-                                            Accept/Reject Business Request</RouterLink
-                                        >
                                     </td>
                                 </tr>
                             </tbody>
@@ -99,3 +88,14 @@ onMounted(() => {
         </div>
     </div>
 </template>
+
+<style scoped>
+.accepted{
+    background-color: rgb(58, 212, 58);
+    color: white;
+}
+.rejected{
+    background-color: rgb(220, 36, 12);
+    color: black
+}
+</style>
