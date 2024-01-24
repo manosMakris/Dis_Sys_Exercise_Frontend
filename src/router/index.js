@@ -148,6 +148,10 @@ const router = createRouter({
             name: 'logout',
             component: () => import('../views/LogoutView.vue'),
             meta: { requiresAuth: true }
+        },
+        {   
+            path: "/:pathMatch(.*)*",
+            component: () => import('../views/404View.vue')
         }
     ]
 });
