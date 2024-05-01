@@ -3,6 +3,7 @@ import { ref, onMounted } from "vue";
 import { useRemoteData } from "@/composables/useRemoteData.js";
 import { useRouter } from 'vue-router';
 import { useRoute } from 'vue-router';
+const backendEnvVar = import.meta.env.VITE_BACKEND;
 
 const roleIdRef = ref(null);
 const router = useRouter();
@@ -22,7 +23,7 @@ const onSubmit = () => {
 
 onMounted(() => {
     roleIdRef.value = route.params.id;
-    urlRef.value = "http://localhost:9090/api/roles/updateRole/"+roleIdRef.value;
+    urlRef.value = backendEnvVar + "/api/roles/updateRole/"+roleIdRef.value;
 });
 </script>
 

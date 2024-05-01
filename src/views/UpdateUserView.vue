@@ -3,6 +3,7 @@ import { ref, onMounted } from "vue";
 import { useRemoteData } from "@/composables/useRemoteData.js";
 import { useRouter } from 'vue-router';
 import { useRoute } from 'vue-router';
+const backendEnvVar = import.meta.env.VITE_BACKEND;
 
 const userIdRef = ref(null);
 const router = useRouter();
@@ -13,7 +14,7 @@ const urlRef = ref(null);
 const authRef = ref(true);
 const methodRef = ref("POST");
 
-const urlRef2 = ref("http://localhost:9090/api/roles/");
+const urlRef2 = ref(backendEnvVar + "/api/roles/");
 const authRef2 = ref(true);
 const selectedRoles = ref({});
 const rolesRemoteData = useRemoteData(urlRef2, authRef2);
@@ -33,10 +34,10 @@ const onSubmit = () => {
     const rolesToUpdate = selectedRolesArray.filter(role => role[1] !== '');
     rolesToUpdate.forEach((role) => {
       if (role[1] === 'add') {
-        urlRef3.value = `http://localhost:9090/api/auth/addRole/${userIdRef.value}`;
+        urlRef3.value = backendEnvVar + `/api/auth/addRole/${userIdRef.value}`;
       }
       if (role[1] === 'remove') {
-        urlRef3.value = `http://localhost:9090/api/auth/deleteRole/${userIdRef.value}`;
+        urlRef3.value = backendEnvVar + `/api/auth/deleteRole/${userIdRef.value}`;
       } 
       methodBodyRef3.value.name = role[0];
       roleRemoteData.performRequest();
@@ -50,7 +51,7 @@ const onSubmit = () => {
 
 onMounted(() => {
     userIdRef.value = route.params.id;
-    urlRef.value = `http://localhost:9090/api/auth/updateUser/${userIdRef.value}`;
+    urlRef.value = backendEnvVar + `/api/auth/updateUser/${userIdRef.value}`;
     rolesRemoteData.performRequest();
 });
 </script>

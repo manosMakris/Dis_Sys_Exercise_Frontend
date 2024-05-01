@@ -3,6 +3,7 @@ import { ref, onMounted } from "vue";
 import { useRemoteData } from "@/composables/useRemoteData.js";
 import { useRouter } from 'vue-router';
 import { useRoute } from 'vue-router';
+const backendEnvVar = import.meta.env.VITE_BACKEND;
 
 const businessRequestIdRef = ref(null);
 const router = useRouter();
@@ -28,7 +29,7 @@ const onTemporarilySaved = () => {
 
 onMounted(() => {
     businessRequestIdRef.value = route.params.id;
-    urlRef.value = "http://localhost:9090/api/businessRequests/"+businessRequestIdRef.value;
+    urlRef.value = backendEnvVar + "/api/businessRequests/"+businessRequestIdRef.value;
 });
 </script>
 

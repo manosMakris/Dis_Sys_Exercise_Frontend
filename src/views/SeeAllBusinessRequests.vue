@@ -2,9 +2,10 @@
 import { onMounted, ref } from 'vue';
 import { useRemoteData } from '@/composables/useRemoteData.js';
 import { useApplicationStore } from '@/stores/application.js';
+const backendEnvVar = import.meta.env.VITE_BACKEND;
 
 const { setEmployeeTaxOfficeBool } = useApplicationStore();
-const urlRef = ref(`http://localhost:9090/api/businessRequests/`);
+const urlRef = ref(backendEnvVar + `/api/businessRequests/`);
 const authRef = ref(true);
 const { data, loading, performRequest } = useRemoteData(urlRef, authRef);
 

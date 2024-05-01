@@ -2,14 +2,15 @@
 import { onMounted, ref } from 'vue';
 import { useRemoteData } from '@/composables/useRemoteData.js';
 import { useRouter } from 'vue-router';
+const backendEnvVar = import.meta.env.VITE_BACKEND;
 
 const router = useRouter();
-const urlRef = ref('http://localhost:9090/api/roles/');
+const urlRef = ref(backendEnvVar + '/api/roles/');
 const authRef = ref(true);
 const { data, loading, performRequest } = useRemoteData(urlRef, authRef);
 
 function removeRole(roleId) {
-    const urlRef3 = ref(`http://localhost:9090/api/roles/deleteRole/${roleId}`);
+    const urlRef3 = ref(backendEnvVar + `/api/roles/deleteRole/${roleId}`);
     const authRef3 = ref(true)
     const removeRemoteData = useRemoteData(urlRef3, authRef3);
     removeRemoteData.performRequest();

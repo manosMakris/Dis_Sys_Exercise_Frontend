@@ -2,14 +2,15 @@
 import { onMounted, ref } from 'vue';
 import { useRemoteData } from '@/composables/useRemoteData.js';
 import { useRouter } from 'vue-router';
+const backendEnvVar = import.meta.env.VITE_BACKEND;
 
 const router = useRouter();
-const urlRef = ref('http://localhost:9090/api/auth/');
+const urlRef = ref(backendEnvVar + '/api/auth/');
 const authRef = ref(true);
 const { data, loading, performRequest } = useRemoteData(urlRef, authRef);
 
 function removeUser(userId) {
-    const urlRef3 = ref(`http://localhost:9090/api/auth/deleteUser/${userId}`);
+    const urlRef3 = ref(backendEnvVar + `/api/auth/deleteUser/${userId}`);
     const authRef3 = ref(true)
     const removeRemoteData = useRemoteData(urlRef3, authRef3);
     removeRemoteData.performRequest();

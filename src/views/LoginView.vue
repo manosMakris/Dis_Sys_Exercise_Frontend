@@ -4,6 +4,7 @@
 import { onBeforeMount, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useApplicationStore } from '@/stores/application.js';
+const backendEnvVar = import.meta.env.VITE_BACKEND;
 
 const router = useRouter();
 const { setUserData, persistUserData, isAuthenticated } = useApplicationStore();
@@ -19,7 +20,7 @@ const onFormSubmit = () => {
     loading.value = true;
     authenticationFailed.value = false;
 
-    fetch('http://localhost:9090/api/auth/signin', {
+    fetch(backendEnvVar + '/api/auth/signin', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

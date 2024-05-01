@@ -2,9 +2,10 @@
 import { ref, onMounted } from "vue";
 import { useRemoteData } from "@/composables/useRemoteData.js";
 import { useRouter } from 'vue-router';
+const backendEnvVar = import.meta.env.VITE_BACKEND;
 
 const router = useRouter();
-const urlRef2 = ref("http://localhost:9090/api/roles/");
+const urlRef2 = ref(backendEnvVar + "/api/roles/");
 const authRef2 = ref(true);
 const formDataRef = ref({
   "username": "",
@@ -12,7 +13,7 @@ const formDataRef = ref({
   "email": ""
 });
 const selectedRoles = ref({});
-const urlRef = ref("http://localhost:9090/api/auth/signup");
+const urlRef = ref(backendEnvVar + "/api/auth/signup");
 const authRef = ref(true);
 const methodRef = ref("POST");
 

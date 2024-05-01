@@ -2,13 +2,14 @@
 import { ref, computed, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 import { useRemoteData } from '@/composables/useRemoteData.js';
+const backendEnvVar = import.meta.env.VITE_BACKEND;
 
 //const router = useRouter();
 const route = useRoute();
 
 const roleIdRef = ref(null);
 const urlRef = computed(() => {
-    return 'http://localhost:9090/api/roles/' + roleIdRef.value;
+    return backendEnvVar + '/api/roles/' + roleIdRef.value;
 });
 const authRef = ref(true);
 const { data, loading, performRequest } = useRemoteData(urlRef, authRef);
