@@ -31,7 +31,7 @@ pipeline {
         stage('Change VITE_BACKEND in .env file') {
             steps {
                 sh '''
-                    sed -i '' 's|^VITE_BACKEND=.*|VITE_BACKEND=http://vue-svc:9000|' .env
+                    sed -i 's|^VITE_BACKEND=.*|VITE_BACKEND=http://vue-svc:9000|' .env
                 '''
             }
         }
