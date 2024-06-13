@@ -2,14 +2,14 @@
 import { ref, computed, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 import { useRemoteData } from '@/composables/useRemoteData.js';
-const backendEnvVar = import.meta.env.VITE_BACKEND;
+// const backendEnvVar = import.meta.env.VITE_BACKEND;
 
 //const router = useRouter();
 const route = useRoute();
 
 const businessRequestIdRef = ref(null);
 const urlRef = computed(() => {
-    return backendEnvVar + '/api/businessRequests/getById/' + businessRequestIdRef.value;
+    return '/api/businessRequests/getById/' + businessRequestIdRef.value;
 });
 const authRef = ref(true);
 const { data, loading, performRequest } = useRemoteData(urlRef, authRef);

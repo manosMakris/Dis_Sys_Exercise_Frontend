@@ -24,17 +24,17 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'git@github.com:manosMakris/Dis_Sys_Exercise_Frontend.git'
+                git branch: 'k8s', url: 'git@github.com:manosMakris/Dis_Sys_Exercise_Frontend.git'
             }
         }
 
-        stage('Change VITE_BACKEND in .env file') {
-            steps {
-                sh '''
-                    sed -i '' 's|^VITE_BACKEND=.*|VITE_BACKEND=http://vue-svc:9000|' .env
-                '''
-            }
-        }
+        // stage('Change VITE_BACKEND in .env file') {
+        //     steps {
+        //         sh '''
+        //             sed -i '' 's|^VITE_BACKEND=.*|VITE_BACKEND=http://vue-svc:9000|' .env
+        //         '''
+        //     }
+        // }
 
         stage('Docker build and push') {
             steps {

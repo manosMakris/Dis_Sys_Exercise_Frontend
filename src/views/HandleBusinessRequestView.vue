@@ -2,14 +2,14 @@
 import { ref, computed, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useRemoteData } from '@/composables/useRemoteData.js';
-const backendEnvVar = import.meta.env.VITE_BACKEND;
+// const backendEnvVar = import.meta.env.VITE_BACKEND;
 
 const router = useRouter();
 const route = useRoute();
 
 const businessRequestIdRef = ref(null);
 const urlRef = computed(() => {
-    return backendEnvVar + '/api/businessRequests/getById/' + businessRequestIdRef.value;
+    return '/api/businessRequests/getById/' + businessRequestIdRef.value;
 });
 const authRef = ref(true);
 const { data, loading, performRequest } = useRemoteData(urlRef, authRef);
@@ -20,7 +20,7 @@ onMounted(() => {
 });
 
 function onAccept() {
-    const urlRef2 = ref(backendEnvVar + `/api/businessRequests/acceptBusinessRequest/${data.value.id}`);
+    const urlRef2 = ref(`/api/businessRequests/acceptBusinessRequest/${data.value.id}`);
     const authRef2 = ref(true);
     const acceptBusinessRequestRemoteData = useRemoteData(urlRef2, authRef2);
     acceptBusinessRequestRemoteData.performRequest();
@@ -30,7 +30,7 @@ function onAccept() {
     router.push({ name: 'home' });
 }
 function onReject() {
-    const urlRef3 = ref(backendEnvVar + `/api/businessRequests/rejectBusinessRequest/${data.value.id}`);
+    const urlRef3 = ref(`/api/businessRequests/rejectBusinessRequest/${data.value.id}`);
     const authRef3 = ref(true);
     const rejectBusinessRequestRemoteData = useRemoteData(urlRef3, authRef3);
     rejectBusinessRequestRemoteData.performRequest();

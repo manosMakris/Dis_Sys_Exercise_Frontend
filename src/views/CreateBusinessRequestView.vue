@@ -2,7 +2,7 @@
 import { ref } from "vue";
 import { useRemoteData } from "@/composables/useRemoteData.js";
 import { useRouter } from 'vue-router';
-const backendEnvVar = import.meta.env.VITE_BACKEND;
+// const backendEnvVar = import.meta.env.VITE_BACKEND;
 
 const router = useRouter();
 const formDataRef = ref({
@@ -12,7 +12,7 @@ const formDataRef = ref({
   "location": ""
 });
 
-const urlRef = ref(backendEnvVar + "/api/businessRequests/");
+const urlRef = ref("/api/businessRequests/");
 const authRef = ref(true);
 const methodRef = ref("POST");
 
