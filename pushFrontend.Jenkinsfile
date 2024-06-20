@@ -47,5 +47,24 @@ pipeline {
                 '''
             }
         }
+
+        stage('Make sure vue-deployment has been created') {
+            steps {
+                sh '''
+                    kubectl apply -f /var/lib/jenkins/workspace/push-backend-image/k8s/vuejs/vue-deployment.yaml
+                '''
+            }
+        }
+
+        stage('set latest frontend image') {
+            steps {
+                sh '''
+                    HEAD_COMMIT=$(git rev-parse --short HEAD)
+                    TAG=$HEAD_COMMIT-$BUILD_ID
+                    kubectl set image deployment/vue-deployment vue=$DOCKER_PREFIX:$TAG
+                    kubectl rollout status deployment vue-deployment --watch --timeout=2m
+                '''
+            }
+        }
     }
 }
